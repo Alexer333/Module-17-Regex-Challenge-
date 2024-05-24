@@ -1,0 +1,103 @@
+# What are regular expressions? 
+
+Greetings, I am Alex, and in this gist I will be going over what regular expressions are in JavaScript. I will also go in-depth on each part of a set regex. They are basically a sequence of characters that are used to follow a search pattern, with different sets of characters used for different parts of the search pattern to limit or expand it in some way for the best results possible. 
+
+## Summary
+
+The regex I will be going over is: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+This regex is designed to match an email. I will explain each individual part of it, going over what they do for our regex after each explanation of what the different regex parts are. 
+
+## Table of Contents
+
+- [Anchors](#anchors)
+- [Quantifiers](#quantifiers)
+- [Grouping Constructs](#grouping-constructs)
+- [Bracket Expressions](#bracket-expressions)
+- [Character Classes](#character-classes)
+- [The OR Operator](#the-or-operator)
+- [Flags](#flags)
+- [Character Escapes](#character-escapes)
+
+## Regex Components
+    There are many components within a regex that make it what it is: anchors, quantifiers, grouping constructs, bracket expressions, character classes, flags, and character escapes. It is also worth noting that regexes are case-sensitive, so that is important to remember for components. 
+
+### Anchors
+    Anchors are the first component. The characters ^ and $ are anchors, and they both have a unique purpose that links them together. The ^ is used to indicate a string that begins with the characters that follow it, while $ is used to indicate the end of a string with the characters behind it. So they go together to signify where a regex string starts and ends. 
+
+    For example, in our string, there is a ^ at the beginning and $ at the end to indicate that it is one whole string. 
+
+### Quantifiers
+    Quantifiers are another important part of the regex as they are used to specify the amount of matches your search has to what you're looking for. Using * looks for a match in the pattern 0 or more times, + means it matches the pattern 1 or more times, and ? is 0 or 1 times. 
+    
+    Using {} can allow you to use three different ways of matching as well. { x } searches for x matches. {x, } searches for at least x matches. {x, y} searches for a min of x matches and a max of y matches. Adding a ? after makes it match as few as possible. 
+
+    So, to go back to our string, it has {2,6} at the end, meaning it looks for a minimum of 2 matches and a maximum of 6 matches. 
+
+### Grouping Constructs
+    Different parts of a regex can be grouped together in pieces known as "subexpressions." These are grouped together with parenthesis. For example we can have (123) and (456) as different subexpressions. These can be linked together with a colon. So if you have (123):(456) it'll look for that. If you include ?: at the beginning, it will be made into a "non-capturing" grouping construct, which means that it will not keep the matched character sequences that it obtained for re-use, which is what normal "capturing" grouping constructs do. 
+
+    Going back to just grouping constructs however, our example above has three:
+    - ([a-z0-9_\.-]+)
+    - ([\da-z\.-]+)
+    - ([a-z\.]{2,6})
+    There is no colon connecting any of them, so they are different groups all searched for separately. 
+
+### Bracket Expressions
+    Brackets are used to contain a letter or number range within them. Such as [abc] or [123]. It can also be used for special characters like _ or -. You can also use - between the letters and numbers to search for a range of characters too, like [a-z] or [0-9] will look for any numbers or letters between the two indicated. The range cannot be used for special characters, however. These are called positive character groups. 
+
+    A ^ can also be put at the beginning to void the characters within the brackets, such as [^123] voiding those numbers. These are called negative character groups. 
+
+    The regex string we have has three different bracket expressions. 
+    - [a-z0-9_\.-] is looking for any letters between a and z, numbers from 0 - 9, and the special characters _ \ . and -
+    - [\da-z\.-] is looking for letters between a and z, and the special characters . and -
+    - [a-z\.] is looking for letters between a and z, and the special character .
+
+### Character Classes
+    A set of characters which serve different unique purposes together. 
+    
+    - . matches with any character except for \n which is a newline expression for something else. 
+    - \d is similar to the bracket expression for numbers, being that it matches any Arabic numeral digits. 
+    - \w is similar to the bracket expression for letters, being that it matches any characters from the Latin Alphabet, including _. 
+    - \s matches ANY singular characters, even including tabs and line breaks. 
+    And to top it all off if you capitalize the character class it will do the inverse. For example \W will search for non-letter digits and \D for non-number digits. 
+
+    So with all of that in mind we can look back at our example regex and see the second group, ([\da-z\.-]+), has \d in it. So that means at the beginning of the second group it is first searching for any numbers at the beginning of that spot. 
+
+### The OR Operator
+    The OR Operator, |, is another character that is able to be used in bracket expressions or grouping constructs to broaden its range of search. When using a search of [123] for example, it can be written as (1|2|3) to search for 1 or 2 or 3. With grouping constructs if you have (123):(abc) set up, you can change it to (1|2|3):(a|b|c) so the search checks for those letters and numbers regardless of positioning or if they're even there at all, as long as they're in that spots. So it would check for "132:cba" or even "1:c", but it would not get "a2:3".
+
+    In our original regex, as you can see, there is no OR operator. So it is stricter about the ordering. 
+
+### Flags
+    While the regex does need to have /slashes around it/, flags are an exception to this rule, as they have to be placed after the ending slash. There are six types of flags, and the three most common ones are: 
+    - g, global search, which makes the regex tested against all of the possible matches in the string. 
+    - i, case sensitive search, which makes the search non-case-sensitive. 
+    - m, multi-line search, which makes a string with multiple anchored lines treated as different lines. 
+    There is also: 
+    - s, dot all search, which makes the character . match newlines. 
+    
+    The last two flags have a lot of extra stuff that would have to be gone into to explain them properly, but they are "y" which is sticky searching, and "u" which is unicode searching. 
+
+    And with that being said, our example does not have any flags at the end of it. 
+
+### Character Escapes
+    Character escapes are simple. The backslash, \, is the escape. When used, it tells the regex to look for the character rather than use it as a quantifier. For example if put behind a semibracket, { or } for example, it will have the regex search for the character instead of using its special functionality. 
+
+    So for a good example in the regex, around the last two groups ([\da-z\.-]+)\.([a-z\.]{2,6}), you can see inbetween a "\." which is telling the code to look for a . there rathern than using its special function. 
+
+## Conclusion
+    So, to put all of this knowledge together, let's take a look at our whole example one last time. 
+
+    /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+
+    It starts with the /^ which is the start and the beginning anchor of our search. The first group, ([a-z0-9_\.-]+), searches for letters and numbers a - z and 0 - 9 respectively, before then searching for the special characters . and -. After the bracket is a +, which means it searches for one or more of these sets of characters. 
+
+    After that is @([\da-z\.-]+) which means it searches for an @ followed by any numbers with the \d and then letters a - z, as well as the characters . and - again. There is then another + which indicates it is searching for one or more. 
+
+    Last but not least, \.([a-z\.]{2,6})$/ searches for a . followed by the letters a - z and the special character . again. The {2,6} after tells it will search for a minimum of 2 matches, and a maximum of 6. Finally, there is the closing anchor $ and our / to end it off. There is no flag following, so that is the end of our regex searching for matching emails. 
+
+## Author
+    My name is Alex. I am a newbie in software development and am slowly learning the subject. I have actually been researching and learning regex as I was making this! I hope you learned as well as I did. 
+
+    My GitHub account, if you are interested:
+    https://github.com/Alexer333
