@@ -4,7 +4,7 @@ Greetings, I am Alex, and in this gist I will be going over what regular express
 
 ## Summary
 
-The regex I will be going over is: /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/
+The regex I will be going over is: `/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/`
 This regex is designed to match an email. I will explain each individual part of it, going over what they do for our regex after each explanation of what the different regex parts are. 
 
 ## Table of Contents
@@ -97,7 +97,7 @@ This regex is designed to match an email. I will explain each individual part of
     Last but not least, \.([a-z\.]{2,6})$/ searches for a . followed by the letters a - z and the special character . again. The {2,6} after tells it will search for a minimum of 2 matches, and a maximum of 6. Finally, there is the closing anchor $ and our / to end it off. There is no flag following, so that is the end of our regex searching for matching emails. 
 
 ## Author
-    My name is Alex. I am a newbie in software development and am slowly learning the subject. I have actually been researching and learning regex as I was making this! I hope you learned as well as I did. 
+My name is Alex. I am a newbie in software development and am slowly learning the subject. I have actually been researching and learning regex as I was making this! I hope you learned as well as I did. 
 
-    My GitHub account, if you are interested:
-    https://github.com/Alexer333
+My GitHub account, if you are interested:
+https://github.com/Alexer333
